@@ -33,7 +33,7 @@ public class Problema2_EjecutorEmpleado {
                         String nombEmpleado = nombres[(int)Math.floor(Math.random()* nombres.length)] + " " +
                                 apellidos[(int)Math.floor(Math.random()* apellidos.length)];
                         double salarioEmpleado = salarios[(int)Math.floor(Math.random()*salarios.length)];
-                        int edadEmpleado = edades[(int)Math.floor(Math.random())* edades.length];
+                        int edadEmpleado = edades[(int)Math.floor(Math.random()* edades.length)];
                         Empleado empleado = new Empleado(nombEmpleado, salarioEmpleado, edadEmpleado);
                         System.out.println("Empleado ingresado: \n" + empleado.toString());
                         nombEmp.add(nombEmpleado);
@@ -68,21 +68,27 @@ public class Problema2_EjecutorEmpleado {
                         System.out.println("Este porcentaje será aplicado para todos los empleados cuyo"
                                 + " \nsalario sea menor al salario promedio de todos los empleados.");
                         System.out.println("Cantidad de empleados: " + nombEmp.size());
-                        System.out.println("Promedio salarial: " + promedioSalarios);
-                        for (int i = 0; i >= nombEmp.size(); i++) {
+                        System.out.println("Promedio salarial: $" + promedioSalarios);
+                        int empleadosConAumento = 0;
+                        for (int i = 0; i < nombEmp.size(); i++) {
                             if (salarioEmp.get(i) < promedioSalarios) {
                                 double nuevoSalario = salarioEmp.get(i) + (salarioEmp.get(i) * aumentoPorcentaje);
                                 salarioEmp.set(i, nuevoSalario);
                                 Empleado empleado = new Empleado(nombEmp.get(i), nuevoSalario, edadEmp.get(i));
-                                empleadosCambioSalario += empleadosCambioSalario + empleado.toString();
+                                empleadosCambioSalario += empleado.toString() + "\n";
+                                empleadosConAumento++;
                             }
                         }
-                        System.out.println("Empleados que su salario fue cambiado: \n" + empleadosCambioSalario);
-                    }
-                    
+                        if (empleadosConAumento > 0) {
+                            System.out.println("\nEmpleados con aumento salarial (" + empleadosConAumento + "):");
+                            System.out.println(empleadosCambioSalario);
+                        } else {
+                            System.out.println("\nNingún empleado cumplió con los requisitos para el aumento");
+                        }
+                    }                    
                 }
                 default -> {
-                    System.out.println("Gracias por usar nuestor Programa");
+                    System.out.println("\nGracias por usar nuestor Programa");
                 }
             }
         } while(eleccion != '4');
@@ -106,6 +112,6 @@ class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "nombre =" + nombre + ", salario =" + salario + ", edad =" + edad + '}';
+        return "Empleado{" + "nombre = " + nombre + ", salario = $" + salario + ", edad = " + edad + '}';
     }    
 }
